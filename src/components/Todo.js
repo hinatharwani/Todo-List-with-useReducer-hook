@@ -1,34 +1,21 @@
-import React from "react";
-const Todo = ({ dispatch, state }) => {
-
-  console.log("state is ",state);
+import React, { useReducer } from 'react'
+import { todoReducer } from '../reducers/todo';
+import '../styles/App.css';
+import { AddTodo } from './AddTodo';
+import { Todo } from './Todo';
+const App = () => {
+  const [state,dispatch] = useReducer(todoReducer,[])
+  
+ 
   return (
-
-          <>
-            {state.map((item) => {
-              
-              return (
-                <div className="todo" key={item.id}> 
-                
-                  <div id={item.id} className="todo-title">
-                  {item.title}
-                  <button
-                    onClick={() =>
-                      dispatch({ type: "DELETE",payload:{title:item.title,id:item.id} })
-                    }
-                    className="todo-delete"
-                  >
-                    DELETE
-                  </button>
-                </div>
-                
-                </div>
-              );
-            })}
-            </>
-  );
-};
+    <div id="main">
+      <AddTodo dispatch={dispatch} state={state} />
+      <Todo dispatch={dispatch} state={state}/>
+     {/* Render list of Todo Components here */}
+    </div>
+  )
+}
 
 
 
-export { Todo }
+export default App;
